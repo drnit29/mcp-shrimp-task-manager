@@ -2,6 +2,30 @@
 
 # Changelog
 
+## [1.0.16]
+
+### Fixed
+
+- Fix: Fixed issue with Augment AI not supporting uuid format by implementing custom regex validation (4264fa7)
+
+### Changed
+
+- Updated task planning related prompts, added critical warning prohibiting assumptions, guesses, and imagination, emphasizing the need to use available tools to gather real information (cb838cb)
+- Adjusted task descriptions to more clearly express task objectives (cb838cb)
+- Optimized error message prompts, adding batch call suggestions to resolve long text formatting issues (cb838cb)
+
+## [1.0.15]
+
+### Fixed
+
+- Fix: Corrected an error where gemini-2.5-pro-preview-05-06 would skip task execution and mark it as completed directly (6d8a422)
+- Fixes issue #20 (5d1c28d)
+
+### Changed
+
+- Moved rule.md to the root directory to prepare for future collaborative architecture with DATA_DIR outside the project (313e338)
+- Updated documentation (28984f)
+
 ## [1.0.14]
 
 ### Changed

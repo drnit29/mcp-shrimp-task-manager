@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UUID_V4_REGEX } from "../../utils/regex.js";
 import {
   getTaskById,
   updateTaskStatus,
@@ -11,7 +12,9 @@ import { getVerifyTaskPrompt } from "../../prompts/index.js";
 export const verifyTaskSchema = z.object({
   taskId: z
     .string()
-    .uuid({ message: "任務ID格式無效，請提供有效的UUID格式" })
+    .regex(UUID_V4_REGEX, {
+      message: "任務ID格式無效，請提供有效的UUID v4格式",
+    })
     .describe("待驗證任務的唯一標識符，必須是系統中存在的有效任務ID"),
   summary: z
     .string()

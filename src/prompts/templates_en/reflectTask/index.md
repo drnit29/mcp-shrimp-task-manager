@@ -39,6 +39,9 @@ After receiving the solution and suggestions, conduct self-reflection and final 
    - Ensure that the task group after splitting still maintains overall architectural consistency
 
 7. **Submit Final Results**
+   - **No Comments Allowed**: JSON does not support comments — Any use of `#` or `//` will cause parsing failures
+   - **Proper Escaping Required**: All special characters (e.g., double quotes `\"`, backslashes `\\`) must be properly escaped, or they will be considered invalid.
+   - **Line Breaks**: If you need line breaks, use escape sequences like \\n or \\r. Direct line breaks will cause parsing errors.
    - Adjusted final solution + reflection report
    - Call tool:
    ```

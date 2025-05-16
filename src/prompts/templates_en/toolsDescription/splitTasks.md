@@ -37,6 +37,15 @@ Break down complex tasks into independent subtasks, establishing dependencies an
   - Only outline high-level logic and key steps.
   - Avoid providing complete source code.
 - Check **dependencies** between subtasks and specify them in the `dependencies` field.
+- If the task involves interface design, always provide a complete and consistent definition, including:
+
+  - Function/class/schema definitions (including names, parameters, return values)
+  - Data types, usage descriptions, and optional/required status for each item
+  - Error handling methods and expected exception scenarios
+  - Dependency and naming conventions (if any)
+  - Sample data and usage examples
+
+  This ensures consistency, readability, and development precision between tasks.
 
 ## 3. **Dependencies and Prioritization**
 
@@ -64,3 +73,11 @@ When you need to create a new task that is not related to the current task list,
 - ### **Proper Escaping Required**
   All special characters (e.g., double quotes `\"`, backslashes `\\`) must be properly escaped,  
   or they will be considered invalid.
+
+## 6. **Important Notes**
+
+These tasks will be executed by low-intelligence models, so please follow the guidelines below:
+
+- `Clear and Explicit Instructions`: This prevents the model from producing incorrect or inconsistent architecture/code styles. Provide clear commands or specifications.
+- `Encapsulated Interfaces`: Each task runs independently. Define the interfaces clearly — such as function names, parameters, return values — so that other task-executing models can easily understand how to interact with or integrate these functions.
+- `Dependencies`: If there are dependencies between tasks, define the interaction interfaces first. Tasks do not need to know each other's implementation, but must know how to interact with one another.

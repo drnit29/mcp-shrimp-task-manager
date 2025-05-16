@@ -25,6 +25,8 @@ import {
   reflectTaskSchema,
   splitTasks,
   splitTasksSchema,
+  splitTasksRaw,
+  splitTasksRawSchema,
   listTasksSchema,
   listTasks,
   executeTask,
@@ -207,7 +209,7 @@ async function main() {
             description: loadPromptFromTemplate(
               "toolsDescription/splitTasks.md"
             ),
-            inputSchema: zodToJsonSchema(splitTasksSchema),
+            inputSchema: zodToJsonSchema(splitTasksRawSchema),
           },
           {
             name: "list_tasks",
@@ -324,7 +326,7 @@ async function main() {
               }
               return await reflectTask(parsedArgs.data);
             case "split_tasks":
-              parsedArgs = await splitTasksSchema.safeParseAsync(
+              parsedArgs = await splitTasksRawSchema.safeParseAsync(
                 request.params.arguments
               );
               if (!parsedArgs.success) {
@@ -332,7 +334,7 @@ async function main() {
                   `Invalid arguments for tool ${request.params.name}: ${parsedArgs.error.message}`
                 );
               }
-              return await splitTasks(parsedArgs.data);
+              return await splitTasksRaw(parsedArgs.data);
             case "list_tasks":
               parsedArgs = await listTasksSchema.safeParseAsync(
                 request.params.arguments

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UUID_V4_REGEX } from "../../utils/regex.js";
 import {
   getTaskById,
   updateTaskContent as modelUpdateTaskContent,
@@ -10,7 +11,9 @@ import { getUpdateTaskContentPrompt } from "../../prompts/index.js";
 export const updateTaskContentSchema = z.object({
   taskId: z
     .string()
-    .uuid({ message: "任務ID格式無效，請提供有效的UUID格式" })
+    .regex(UUID_V4_REGEX, {
+      message: "任務ID格式無效，請提供有效的UUID v4格式",
+    })
     .describe("待更新任務的唯一標識符，必須是系統中存在且未完成的任務ID"),
   name: z.string().optional().describe("任務的新名稱（選填）"),
   description: z.string().optional().describe("任務的新描述內容（選填）"),

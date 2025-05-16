@@ -5,7 +5,7 @@ Please use the "process_thought" tool to consider the following issues
 ## Purpose
 
 **This document is specifically designed for AI Agents, not for general developer documentation.**
-**Must generate a project standards document (rules.md) exclusively for AI Agent operational use.**
+**Must generate a project standards document (shrimp-rules.md) exclusively for AI Agent operational use.**
 
 **Must focus on the following key objectives:**
 
@@ -72,10 +72,10 @@ The standards document should include but not be limited to the following:
 1. **Minimal Changes** - When users request updates to project rules, you should maintain existing rules unless necessary, with the principle of minimal changes
 2. **Timeliness** - You should check if existing rules are still beneficial or outdated, as users may have modified or removed relevant code, you must correct or remove corresponding rules
 3. **Completeness** - You should check all folders and file contents in the existing project, as users may have added or modified relevant code, you must supplement corresponding rules
-4. **Autonomous Handling of Ambiguous Requests**: When receiving ambiguous instructions such as "update rules" without specifying concrete content, the AI **must** first attempt to independently analyze the current codebase, recent changes (if available), and existing `rules.md` content to infer possible update points. List these inferred points and their rationale during the `process_thought` phase, then propose specific modification suggestions. **Strictly prohibited** from seeking clarification from users on ambiguous update requests before performing this autonomous analysis.
+4. **Autonomous Handling of Ambiguous Requests**: When receiving ambiguous instructions such as "update rules" without specifying concrete content, the AI **must** first attempt to independently analyze the current codebase, recent changes (if available), and existing `shrimp-rules.md` content to infer possible update points. List these inferred points and their rationale during the `process_thought` phase, then propose specific modification suggestions. **Strictly prohibited** from seeking clarification from users on ambiguous update requests before performing this autonomous analysis.
 
-Based on the above guidelines, create a file named rules.md and store it at: {rulesPath}
+Based on the above guidelines, create a file named shrimp-rules.md and save it in the project root directory
 
 **[AI Agent Action]** Now start calling the "process_thought" tool to think about how to write standards document that guides the Coding Agent
-**[AI Agent Action]** After completing the thought process, immediately edit the rules.md file, prohibited from calling the "analyze_task" tool
+**[AI Agent Action]** After completing the thought process, immediately edit the shrimp-rules.md file, prohibited from calling the "analyze_task" tool
 **[AI Agent Action]** Strictly forbidden not to call tools. The AI must independently complete the entire process from receiving instructions to implementing modifications, and should not interrupt the process to seek user input unless encountering technical errors or unresolvable dependency conflicts.

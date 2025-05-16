@@ -97,9 +97,7 @@ export const splitTasksSchema = z.object({
   globalAnalysisResult: z
     .string()
     .optional()
-    .describe(
-      "全局分析結果：來自 reflect_task 的完整分析結果，適用於所有任務的通用部分"
-    ),
+    .describe("任務最終目標，來自之前分析適用於所有任務的通用部分"),
 });
 
 export async function splitTasks({

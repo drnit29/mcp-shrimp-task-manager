@@ -1,9 +1,5 @@
 import { z } from "zod";
 import { getInitProjectRulesPrompt } from "../../prompts/index.js";
-import {
-  getRulesFilePath,
-  ensureRulesFileExists,
-} from "../../utils/pathUtils.js";
 
 // 定義schema
 export const initProjectRulesSchema = z.object({});
@@ -17,18 +13,12 @@ export async function initProjectRules() {
     // 從生成器獲取提示詞
     const promptContent = getInitProjectRulesPrompt();
 
-    // 確保 DATA_DIR 目錄中存在 rules.md 文件
-    await ensureRulesFileExists();
-
-    // 輸出規則文件的路徑，幫助用戶找到文件
-    const rulesPath = getRulesFilePath();
-
     // 返回成功響應
     return {
       content: [
         {
           type: "text" as const,
-          text: promptContent + `\n\n規則文件將位於: ${rulesPath}`,
+          text: promptContent,
         },
       ],
     };

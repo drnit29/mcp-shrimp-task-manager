@@ -8,7 +8,6 @@ import {
   generatePrompt,
   loadPromptFromTemplate,
 } from "../loader.js";
-import { getRulesFilePath } from "../../utils/pathUtils.js";
 import { Task, TaskDependency } from "../../types/index.js";
 
 /**
@@ -116,13 +115,12 @@ export function getPlanTaskPrompt(params: PlanTaskPromptParams): string {
   } else {
     thoughtTemplate = loadPromptFromTemplate("planTask/noThought.md");
   }
-  const rulesPath = getRulesFilePath();
   const indexTemplate = loadPromptFromTemplate("planTask/index.md");
   let prompt = generatePrompt(indexTemplate, {
     description: params.description,
     requirements: params.requirements || "No requirements",
     tasksTemplate: tasksContent,
-    rulesPath: rulesPath,
+    rulesPath: "shrimp-rules.md",
     memoryDir: params.memoryDir,
     thoughtTemplate: thoughtTemplate,
   });

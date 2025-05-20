@@ -1,6 +1,6 @@
-[English](README.md) | [中文](docs/zh/README.md)
+[English](README.md)
 
-## 目錄
+## Table of Contents
 
 - [✨ Features](#features1)
 - [🧭 Usage Guide](#usage-guide)
@@ -76,7 +76,7 @@ Due to LLM token limits, context may be lost during lengthy conversations. If th
 
 ### Prompt Language and Customization
 
-You can switch the language of system prompts by setting the `TEMPLATES_USE` environment variable. It supports `en` (English) and `zh` (Traditional Chinese) by default. Furthermore, you can copy an existing template directory (e.g., `src/prompts/templates_en`) to the location specified by `DATA_DIR`, modify it, and then point `TEMPLATES_USE` to your custom template directory name. This allows for deeper prompt customization. For detailed instructions.
+You can switch the language of system prompts by setting the `TEMPLATES_USE` environment variable. It supports `en` (English) by default. Furthermore, you can copy an existing template directory (e.g., `src/prompts/templates_en`) to the location specified by `DATA_DIR`, modify it, and then point `TEMPLATES_USE` to your custom template directory name. This allows for deeper prompt customization. For detailed instructions.
 
 ## 🧠 <a id="task-memory-function"></a>Task Memory Function
 
@@ -168,7 +168,7 @@ Shrimp Task Manager offers two configuration methods: global configuration and p
       "command": "node",
       "args": ["/mcp-shrimp-task-manager/dist/index.js"],
       "env": {
-        "DATA_DIR": "/path/to/project/data", // 必須使用絕對路徑
+        "DATA_DIR": "/path/to/project/data", // Must use absolute path
         "TEMPLATES_USE": "en",
         "ENABLE_GUI": "false"
       }
@@ -277,7 +277,7 @@ There are two customization methods:
 Additionally, there are other system configuration variables:
 
 - **DATA_DIR**: Specifies the directory where task data is stored
-- **TEMPLATES_USE**: Specifies the template set to use for prompts. Defaults to `en`. Currently available options are `en` and `zh`. To use custom templates, copy the `src/prompts/templates_en` directory to the location specified by `DATA_DIR`, rename the copied directory (e.g., to `my_templates`), and set `TEMPLATES_USE` to the new directory name (e.g., `my_templates`).
+- **TEMPLATES_USE**: Specifies the template set to use for prompts. Defaults to `en`. To use custom templates, copy the `src/prompts/templates_en` directory to the location specified by `DATA_DIR`, rename the copied directory (e.g., to `my_templates`), and set `TEMPLATES_USE` to the new directory name (e.g., `my_templates`).
 
 For detailed instructions on customizing prompts, including supported parameters and examples, see the [Prompt Customization Guide](docs/en/prompt-customization.md).
 

@@ -10,14 +10,14 @@ import { TaskStatus, Task } from "../../types/index.js";
 import { getExecuteTaskPrompt } from "../../prompts/index.js";
 import { loadTaskRelatedFiles } from "../../utils/fileLoader.js";
 
-// 執行任務工具
+// Execute Task Tool
 export const executeTaskSchema = z.object({
   taskId: z
     .string()
     .regex(UUID_V4_REGEX, {
-      message: "任務ID格式無效，請提供有效的UUID v4格式",
+      message: "Invalid task ID format, please provide a valid UUID v4 format",
     })
-    .describe("待執行任務的唯一標識符，必須是系統中存在的有效任務ID"),
+    .describe("Unique identifier of the task to be executed, must be a valid task ID existing in the system"),
 });
 
 export async function executeTask({
@@ -31,7 +31,7 @@ export async function executeTask({
         content: [
           {
             type: "text" as const,
-            text: `找不到ID為 \`${taskId}\` 的任務。請確認ID是否正確。`,
+            text: `Task with ID \`${taskId}\` not found. Please confirm the ID is correct.`,
           },
         ],
       };
@@ -42,14 +42,14 @@ export async function executeTask({
     if (!executionCheck.canExecute) {
       const blockedByTasksText =
         executionCheck.blockedBy && executionCheck.blockedBy.length > 0
-          ? `被以下未完成的依賴任務阻擋: ${executionCheck.blockedBy.join(", ")}`
-          : "無法確定阻擋原因";
+          ? `Blocked by the following incomplete dependency tasks: ${executionCheck.blockedBy.join(", ")}`
+          : "Unable to determine blocking reason";
 
       return {
         content: [
           {
             type: "text" as const,
-            text: `任務 "${task.name}" (ID: \`${taskId}\`) 目前無法執行。${blockedByTasksText}`,
+            text: `Task "${task.name}" (ID: \`${taskId}\`) cannot be executed at this time. ${blockedByTasksText}`,
           },
         ],
       };
@@ -61,7 +61,7 @@ export async function executeTask({
         content: [
           {
             type: "text" as const,
-            text: `任務 "${task.name}" (ID: \`${taskId}\`) 已經處於進行中狀態。`,
+            text: `Task "${task.name}" (ID: \`${taskId}\`) is already in progress.`,
           },
         ],
       };
@@ -73,7 +73,7 @@ export async function executeTask({
         content: [
           {
             type: "text" as const,
-            text: `任務 "${task.name}" (ID: \`${taskId}\`) 已經標記為完成。如需重新執行，請先使用 delete_task 刪除該任務並重新創建。`,
+            text: `Task "${task.name}" (ID: \`${taskId}\`) is already marked as completed. To re-execute, please delete the task using delete_task and recreate it.`,
           },
         ],
       };
@@ -108,7 +108,7 @@ export async function executeTask({
       }
     }
 
-    // 加載任務相關的文件內容
+    // Load task-related file content
     let relatedFilesSummary = "";
     if (task.relatedFiles && task.relatedFiles.length > 0) {
       try {
@@ -146,7 +146,7 @@ export async function executeTask({
       content: [
         {
           type: "text" as const,
-          text: `執行任務時發生錯誤: ${
+          text: `Error executing task: ${
             error instanceof Error ? error.message : String(error)
           }`,
         },

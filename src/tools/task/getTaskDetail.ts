@@ -2,14 +2,14 @@ import { z } from "zod";
 import { searchTasksWithCommand } from "../../models/taskModel.js";
 import { getGetTaskDetailPrompt } from "../../prompts/index.js";
 
-// 取得完整任務詳情的參數
+// Parameters for getting complete task details
 export const getTaskDetailSchema = z.object({
   taskId: z
     .string()
     .min(1, {
-      message: "任務ID不能為空，請提供有效的任務ID",
+      message: "Task ID cannot be empty, please provide a valid task ID",
     })
-    .describe("欲檢視詳情的任務ID"),
+    .describe("Task ID for viewing details"),
 });
 
 // 取得任務完整詳情
@@ -27,7 +27,7 @@ export async function getTaskDetail({
         content: [
           {
             type: "text" as const,
-            text: `## 錯誤\n\n找不到ID為 \`${taskId}\` 的任務。請確認任務ID是否正確。`,
+            text: `## Error\n\nTask with ID \`${taskId}\` not found. Please confirm the task ID is correct.`,
           },
         ],
         isError: true,
@@ -52,7 +52,7 @@ export async function getTaskDetail({
       ],
     };
   } catch (error) {
-    // 使用prompt生成器獲取錯誤訊息
+    // Use prompt generator to get error message
     const errorPrompt = getGetTaskDetailPrompt({
       taskId,
       error: error instanceof Error ? error.message : String(error),

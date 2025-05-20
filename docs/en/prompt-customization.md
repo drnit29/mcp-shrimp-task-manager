@@ -1,4 +1,4 @@
-[English](../en/prompt-customization.md) | [中文](../zh/prompt-customization.md)
+[English](../en/prompt-customization.md)
 
 # Prompt Customization Guide
 
@@ -20,7 +20,7 @@ Where `[FUNCTION_NAME]` is the name of the tool function in uppercase. For examp
 
 Shrimp Task Manager supports prompt templates in multiple languages, configurable via the `TEMPLATES_USE` environment variable:
 
-- Currently supported languages: `en` (English) and `zh` (Traditional Chinese)
+- Currently supported languages: `en` (English)
 - Default is `en` (English)
 
 ### Switching Languages
@@ -29,21 +29,21 @@ Set in the `mcp.json` configuration:
 
 ```json
 "env": {
-  "TEMPLATES_USE": "zh"  // Use Traditional Chinese templates
+  "TEMPLATES_USE": "en"  // Example for English templates
 }
 ```
 
 Or in the `.env` file:
 
 ```
-TEMPLATES_USE=zh
+TEMPLATES_USE=en
 ```
 
 ### Custom Templates
 
 You can create your own template set:
 
-1. Copy an existing template set (e.g., `src/prompts/templates_en` or `src/prompts/templates_zh`) to your directory specified by `DATA_DIR`
+1. Copy an existing template set (e.g., `src/prompts/templates_en`) to your directory specified by `DATA_DIR`
 2. Rename the copied directory (e.g., `my_templates`)
 3. Modify the template files to meet your needs
 4. Set the `TEMPLATES_USE` environment variable to your template directory name:

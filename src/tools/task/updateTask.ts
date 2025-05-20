@@ -7,60 +7,60 @@ import {
 import { RelatedFileType } from "../../types/index.js";
 import { getUpdateTaskContentPrompt } from "../../prompts/index.js";
 
-// 更新任務內容工具
+// Update Task Content Tool
 export const updateTaskContentSchema = z.object({
   taskId: z
     .string()
     .regex(UUID_V4_REGEX, {
-      message: "任務ID格式無效，請提供有效的UUID v4格式",
+      message: "Invalid task ID format, please provide a valid UUID v4 format",
     })
-    .describe("待更新任務的唯一標識符，必須是系統中存在且未完成的任務ID"),
-  name: z.string().optional().describe("任務的新名稱（選填）"),
-  description: z.string().optional().describe("任務的新描述內容（選填）"),
-  notes: z.string().optional().describe("任務的新補充說明（選填）"),
+    .describe("Unique identifier of the task to be updated, must be a valid and incomplete task ID existing in the system"),
+  name: z.string().optional().describe("New task name (optional)"),
+  description: z.string().optional().describe("New task description content (optional)"),
+  notes: z.string().optional().describe("New supplementary notes for the task (optional)"),
   dependencies: z
     .array(z.string())
     .optional()
-    .describe("任務的新依賴關係（選填）"),
+    .describe("New task dependencies (optional)"),
   relatedFiles: z
     .array(
       z.object({
         path: z
           .string()
-          .min(1, { message: "文件路徑不能為空，請提供有效的文件路徑" })
-          .describe("文件路徑，可以是相對於項目根目錄的路徑或絕對路徑"),
+          .min(1, { message: "File path cannot be empty, please provide a valid file path" })
+          .describe("File path, can be relative to the project root or absolute path"),
         type: z
           .nativeEnum(RelatedFileType)
           .describe(
-            "文件與任務的關係類型 (TO_MODIFY, REFERENCE, CREATE, DEPENDENCY, OTHER)"
+            "File relationship type (TO_MODIFY, REFERENCE, CREATE, DEPENDENCY, OTHER)"
           ),
-        description: z.string().optional().describe("文件的補充描述（選填）"),
+        description: z.string().optional().describe("Supplementary file description (optional)"),
         lineStart: z
           .number()
           .int()
           .positive()
           .optional()
-          .describe("相關代碼區塊的起始行（選填）"),
+          .describe("Starting line of the relevant code block (optional)"),
         lineEnd: z
           .number()
           .int()
           .positive()
           .optional()
-          .describe("相關代碼區塊的結束行（選填）"),
+          .describe("Ending line of the relevant code block (optional)"),
       })
     )
     .optional()
     .describe(
-      "與任務相關的文件列表，用於記錄與任務相關的代碼文件、參考資料、要建立的檔案等（選填）"
+      "List of files related to the task, used to record code files, reference materials, files to be created, etc. related to the task (optional)"
     ),
   implementationGuide: z
     .string()
     .optional()
-    .describe("任務的新實現指南（選填）"),
+    .describe("New implementation guide for the task (optional)"),
   verificationCriteria: z
     .string()
     .optional()
-    .describe("任務的新驗證標準（選填）"),
+    .describe("New verification criteria for the task (optional)"),
 });
 
 export async function updateTaskContent({
@@ -87,7 +87,7 @@ export async function updateTaskContent({
               text: getUpdateTaskContentPrompt({
                 taskId,
                 validationError:
-                  "行號設置無效：必須同時設置起始行和結束行，且起始行必須小於結束行",
+                  "Invalid line number setting: Both start and end lines must be set, and the start line must be less than the end line",
               }),
             },
           ],
@@ -138,16 +138,16 @@ export async function updateTaskContent({
   }
 
   // 記錄要更新的任務和內容
-  let updateSummary = `準備更新任務：${task.name} (ID: ${task.id})`;
-  if (name) updateSummary += `，新名稱：${name}`;
-  if (description) updateSummary += `，更新描述`;
-  if (notes) updateSummary += `，更新注記`;
+  let updateSummary = `Preparing to update task: ${task.name} (ID: ${task.id})`;
+  if (name) updateSummary += `, new name: ${name}`;
+  if (description) updateSummary += `, updating description`;
+  if (notes) updateSummary += `, updating notes`;
   if (relatedFiles)
-    updateSummary += `，更新相關文件 (${relatedFiles.length} 個)`;
+    updateSummary += `, updating related files (${relatedFiles.length} files)`;
   if (dependencies)
-    updateSummary += `，更新依賴關係 (${dependencies.length} 個)`;
-  if (implementationGuide) updateSummary += `，更新實現指南`;
-  if (verificationCriteria) updateSummary += `，更新驗證標準`;
+    updateSummary += `, updating dependencies (${dependencies.length} dependencies)`;
+  if (implementationGuide) updateSummary += `, updating implementation guide`;
+  if (verificationCriteria) updateSummary += `, updating verification criteria`;
 
   // 執行更新操作
   const result = await modelUpdateTaskContent(taskId, {
